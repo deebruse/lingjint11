@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>冷噤舱 · Lingjin-T1 控制台</title>
+</head>
+
+<body>
+
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="title">冷噤舱 · Lingjin-T1</div>
+        <div class="date">今日：<span id="today-date"></span></div>
+    </header>
+
+    <!-- 组合概览区 -->
+    <section class="overview">
+        <div class="metric">
+            <span class="label">组合总市值</span>
+            <span class="value" id="total-amount">¥ --</span>
+        </div>
+        <div class="metric">
+            <span class="label">海外仓位</span>
+            <span class="value" id="overseas-weight">--%</span>
+        </div>
+        <div class="metric">
+            <span class="label">防守仓位（黄金+债）</span>
+            <span class="value" id="defensive-weight">--%</span>
+        </div>
+        <div class="metric">
+            <span class="label">科技整体仓位</span>
+            <span class="value" id="tech-weight">--%</span>
+        </div>
+        <div class="metric">
+            <span class="label">今日风险等级</span>
+            <span class="value" id="risk-level">--</span>
+        </div>
+    </section>
+
+    <!-- 基金监控表 -->
+    <section class="fund-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>基金名称</th>
+                    <th>当前净值</th>
+                    <th>成本</th>
+                    <th>份额</th>
+                    <th>市值</th>
+                    <th>回撤</th>
+                    <th>仓位</th>
+                    <th>状态</th>
+                    <th>今日建议</th>
+                </tr>
+            </thead>
+            <tbody id="fund-rows">
+                <!-- JS 动态填充 17 行基金数据 -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 今日信号面板 -->
+    <aside class="signal-panel">
+        <h2>📌 今日信号</h2>
+        <ul id="signal-list">
+            <!-- 自动填充信号 -->
+        </ul>
+    </aside>
+
+    <!-- 今日结论 -->
+    <section class="daily-conclusion">
+        <h2>🧊 冷噤舱 · 今日结论</h2>
+        <p id="conclusion-text">
+            <!-- 自动生成结论 -->
+        </p >
+    </section>
+
+</body>
+</html>
