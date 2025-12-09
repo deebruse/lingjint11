@@ -1,18 +1,85 @@
-"FundName,Code,Cost,Shares,TargetWeight,CurrentValue,High_3m"
-"ÖĞÖ¤ºìÀûµÍ²¨¶¯ETF,007466,1.6691,10819.79,0.22,1.886,1.92"
-"ÖĞÕ®ĞÂ×ÛºÏÖ¸Êı,161119,1.7562,1138.81,0.03,1.887,1.91"
-"²©Ê±»Æ½ğETF,002610,3.0715,1367.41,0.10,3.28,3.35"
-"¿Æ´´°å×ÛºÏÖ¸Êı,023895,1.0636,5265.35,0.15,1.03,1.20"
-"ÖĞÖ¤»úÆ÷ÈËETF,018344,1.1793,593.55,0.02,1.152,1.22"
-"´´Òµ°åÈË¹¤ÖÇÄÜ,025492,0.9957,1506.41,0.08,0.985,1.10"
-"ºãÉú¿Æ¼¼ETF,014438,1.0879,1011.14,0.05,1.01,1.23"
-"Ò×·½´ïÏû·ÑĞĞÒµ¹ÉÆ±,110022,3.6425,137.27,0.01,3.55,3.80"
-"ÖĞÖ¤Ïû·ÑÁúÍ·Ö¸Êı,011853,0.8533,585.95,0.02,0.82,0.95"
-"¸»Ê±ÏÖ½ğÁ÷ETF,023919,1.0885,4593.52,0.15,1.09,1.15"
-"ÖĞÖ¤Ò½Ò©100Ö¸Êı,000059,1.0608,1319.78,0.04,1.051,1.12"
-"¹ã·¢´´ĞÂÒ©²úÒµETF,012737,0.6273,1275.27,0.03,0.611,0.72"
-"ÖĞÖ¤µçÍøÉè±¸Ö÷ÌâÖ¸Êı,025856,1.001,997,0.05,0.999,1.05"
-"±êÆÕ500ETFÁª½Ó,018064,0,0,0.10,0,1.00"
-"Ô½ÄÏÊĞ³¡¹ÉÆ±,008763,1.6582,301.53,0.02,1.645,1.72"
-"ÈÕ±¾¾«Ñ¡¹ÉÆ±,007280,1.9443,360.02,0.02,1.95,1.98"
-"Ó¡¶È»ú»á¹ÉÆ±,006105,1.4837,336.99,0.02,1.472,1.55"
+// è¯»å– CSV æ–‡ä»¶
+fetch('FUND_BASE.csv')
+  .then(response => response.text())
+  .then(csv => {
+    const rows = csv.trim().split('\n').map(r => r.split(','));
+    const header = rows[0];
+    const dataRows = rows.slice(1);
+
+    let funds = dataRows.map(cols => {
+      return {
+        FundName: cols[0],
+        Code: cols[1],
+        Cost: parseFloat(cols[2]),
+        Shares: parseFloat(cols[3]),
+        TargetWeight: parseFloat(cols[4]),
+        CurrentValue: parseFloat(cols[5]),
+        High_3m: parseFloat(cols[6]),
+      };
+    });
+
+    // è‡ªåŠ¨è®¡ç®—å„é¡¹æŒ‡æ ‡
+    funds.forEach(f => {
+      f.Amount = f.CurrentValue * f.Shares;
+      f.Drawdown = (f.CurrentValue / f.High_3m) - 1;
+    });
+
+    // è®¡ç®—ç»„åˆæ€»å¸‚å€¼
+    const totalAmount = funds.reduce((sum, f) => sum + f.Amount, 0);
+
+    // è®¡ç®—ä»“ä½
+    funds.forEach(f => {
+      f.CurrentWeight = f.Amount / totalAmount;
+    });
+
+    // å®šä¹‰çŠ¶æ€è§„åˆ™ï¼ˆç®€åŒ–ç‰ˆï¼‰
+    function getStatus(f) {
+      const d = f.Drawdown;
+
+      if (d <= -0.15) return "strong";
+      if (d <= -0.10) return "buy-2";
+      if (d <= -0.07) return "buy-1";
+      if (d <= -0.03) return "watch";
+      return "normal";
+    }
+
+    funds.forEach(f => {
+      f.Status = getStatus(f);
+    });
+
+    // å†™å…¥ HTML è¡¨æ ¼
+    const tbody = document.getElementById("fund-rows");
+    tbody.innerHTML = "";
+
+    funds.forEach(f => {
+      const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+        <td>${f.FundName}</td>
+        <td>${f.CurrentValue.toFixed(4)}</td>
+        <td>${f.Cost.toFixed(4)}</td>
+        <td>${f.Shares.toFixed(2)}</td>
+        <td>Â¥${f.Amount.toFixed(2)}</td>
+        <td>${(f.Drawdown * 100).toFixed(2)}%</td>
+        <td>${(f.CurrentWeight * 100).toFixed(2)}%</td>
+        <td><span class="status-tag status-${f.Status}">${f.Status}</span></td>
+        <td>${getAdvice(f.Status)}</td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+
+    // ç»™ä¸åŒçŠ¶æ€æä¾›å»ºè®®
+    function getAdvice(status) {
+      switch(status) {
+        case "strong": return "å¼ºè¡¥ 1000â€“3000";
+        case "buy-2": return "è¡¥ 300â€“500";
+        case "buy-1": return "å°é¢è¡¥ä»“";
+        case "watch": return "è§‚å¯Ÿ";
+        default: return "æŒæœ‰";
+      }
+    }
+
+    // æ›´æ–°ç»„åˆæ€»è§ˆ
+    document.getElementById("total-amount").innerText = "Â¥" + totalAmount.toFixed(2);
+  });
