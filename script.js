@@ -5,7 +5,7 @@ fetch('FUND_BASE.csv')
     const rows = csv.replace(/^\uFEFF/, '').trim().split('\n').map(r => r.split(','));
     const header = rows[0];
     const dataRows = rows.slice(1);
-    
+
     let funds = dataRows.map(cols => {
       return {
         FundName: cols[0],
@@ -83,4 +83,3 @@ fetch('FUND_BASE.csv')
     // 更新组合总览
     document.getElementById("total-amount").innerText = "¥" + totalAmount.toFixed(2);
   });
-
