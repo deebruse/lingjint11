@@ -1,4 +1,4 @@
-FundName,Code,Cost,Shares,TargetWeight,CurrentValue,High_3m
+FundName ,Code,Cost,Shares,TargetWeight,CurrentValue,High_3m
 中证红利低波动ETF,007466,1.6691,10819.79,0.22,1.886,1.92
 中债新综合指数,161119,1.7562,1138.81,0.03,1.887,1.91
 博时黄金ETF,002610,3.0715,1367.41,0.10,3.28,3.35
@@ -15,4 +15,5 @@ FundName,Code,Cost,Shares,TargetWeight,CurrentValue,High_3m
 标普500ETF联接,018064,0,0,0.10,0,1.00
 越南市场股票,008763,1.6582,301.53,0.02,1.645,1.72
 日本精选股票,007280,1.9443,360.02,0.02,1.95,1.98
+
 印度机会股票,006105,1.4837,336.99,0.02,1.472,1.55
