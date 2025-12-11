@@ -337,20 +337,146 @@ body {
 }
 
 /* 响应式（窄屏时改布局） */
+/* 🔵 冷噤舱 Deep Space · 手机版适配 */
 @media (max-width: 900px) {
+  
+  /* 整体布局改为纵向排列 */
   .main-layout {
     grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 10px;
   }
 
+  /* 左侧面板移动到顶部 */
   .left-panel {
-    order: 2;
-  }
-
-  .right-panel {
     order: 1;
   }
 
+  /* 右侧表格区域移动到下方 */
+  .right-panel {
+    order: 2;
+  }
+
+  /* 顶部栏紧凑化 */
+  .top-bar {
+    height: auto;
+    padding: 10px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .top-title .main-title {
+    font-size: 16px;
+  }
+
+  .top-title .sub-title {
+    font-size: 10px;
+  }
+
+  /* 卡片放大字体以适配手机 */
+  .card-title {
+    font-size: 12px;
+    padding: 10px 14px;
+  }
+
+  .card-body {
+    padding: 10px 14px;
+  }
+
+  /* 三大腿布局：改成大号卡片，竖排显示 */
+  .core-body {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .reactor {
+    padding: 12px;
+  }
+
+  .reactor-title {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .reactor-meta {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .reactor-bar {
+    height: 8px;
+  }
+
+  .reactor-signal {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  /* 今日信号列表改为大号卡片 */
+  .signal-item {
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+  }
+
+  .signal-tag {
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+
+  /* 表格 → 改成“卡片排列” */
   .table-wrapper {
+    overflow: visible;
     max-height: none;
   }
+
+  .fund-table {
+    display: none; /* 隐藏电脑版表格 */
+  }
+
+  /* 手机版卡片 */
+  #fundTableBody::before {
+    content: "";
+  }
+
+  .fund-row {
+    display: block;
+    background: rgba(5, 14, 25, 0.9);
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(78, 242, 227, 0.25);
+  }
+
+  .fund-row > td {
+    display: block;
+    border-bottom: none;
+    padding: 4px 0;
+  }
+
+  .fund-row td:first-child {
+    margin-bottom: 6px;
+  }
+
+  .fund-type-pill {
+    font-size: 13px;
+  }
+
+  /* 数字显示更清晰 */
+  .fund-row td {
+    font-size: 13px;
+    color: #e0f6ff;
+  }
+
+  /* 底部栏适配 */
+  .bottom-bar {
+    padding: 10px;
+    font-size: 10px;
+    flex-direction: column;
+    gap: 4px;
+    height: auto;
+    text-align: center;
+  }
+}  }
 }
