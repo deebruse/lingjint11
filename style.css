@@ -1,23 +1,356 @@
-body {
-  font-family: sans-serif;
-  padding: 20px;
-  background: #fafafa;
+/* 全局基础 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-table {
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: radial-gradient(circle at top, #071525 0, #03060a 40%, #020308 100%);
+  color: #f5f5f5;
+}
+
+/* App 容器 */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部栏 */
+.top-bar {
+  height: 64px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(78, 242, 227, 0.25);
+  background: linear-gradient(to right, rgba(6, 10, 15, 0.95), rgba(6, 25, 50, 0.85));
+  backdrop-filter: blur(14px);
+}
+
+.top-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #4ef2e3, #0c2a3e);
+  box-shadow: 0 0 16px rgba(78, 242, 227, 0.9);
+}
+
+.top-title .main-title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #e6feff;
+}
+
+.top-title .sub-title {
+  font-size: 11px;
+  opacity: 0.7;
+  color: #9ad9ff;
+}
+
+.top-right .top-info {
+  font-size: 12px;
+  color: #c0d4e6;
+}
+
+.top-right .sep {
+  margin: 0 8px;
+  opacity: 0.4;
+}
+
+/* 主体布局 */
+.main-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 20px;
+}
+
+/* 卡片基础 */
+.card {
+  background: radial-gradient(circle at top left, rgba(78, 242, 227, 0.16), transparent 55%),
+    linear-gradient(145deg, #050810, #050810);
+  border-radius: 14px;
+  border: 1px solid rgba(111, 182, 255, 0.28);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.card-title {
+  padding: 12px 16px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(111, 182, 255, 0.35);
+  color: #9ad9ff;
+}
+
+.card-body {
+  padding: 12px 14px 14px;
+}
+
+/* 左侧面板 */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 组合概况 */
+.summary-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.summary-row .label {
+  color: #c0d4e6;
+}
+
+.summary-row .value {
+  font-weight: 600;
+  color: #4ef2e3;
+}
+
+/* 三大核心腿 */
+.core-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reactor {
+  padding: 10px 10px 8px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(12, 42, 62, 0.9), rgba(3, 9, 18, 0.95));
+  box-shadow: 0 0 16px rgba(78, 242, 227, 0.15);
+}
+
+.reactor-title {
+  font-size: 13px;
+  color: #e6feff;
+  margin-bottom: 4px;
+}
+
+.reactor-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #9ad9ff;
+  margin-bottom: 4px;
+}
+
+.reactor-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(7, 28, 45, 0.9);
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.reactor-fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(to right, #4ef2e3, #a8f2ff);
+  box-shadow: 0 0 12px rgba(78, 242, 227, 0.9);
+  transition: width 0.4s ease-out;
+}
+
+.reactor-signal {
+  font-size: 11px;
+  color: #c0d4e6;
+}
+
+/* 今日信号列表 */
+.signal-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.signal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(7, 19, 32, 0.92);
+}
+
+.signal-name {
+  color: #e6feff;
+}
+
+.signal-tag {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+/* 信号颜色 */
+.tag-normal {
+  background: rgba(120, 198, 145, 0.18);
+  color: #76e2a0;
+  border: 1px solid rgba(120, 198, 145, 0.5);
+}
+
+.tag-watch {
+  background: rgba(154, 217, 255, 0.12);
+  color: #9ad9ff;
+  border: 1px solid rgba(154, 217, 255, 0.4);
+}
+
+.tag-buy {
+  background: rgba(78, 242, 227, 0.12);
+  color: #4ef2e3;
+  border: 1px solid rgba(78, 242, 227, 0.6);
+}
+
+.tag-strong {
+  background: rgba(255, 78, 78, 0.18);
+  color: #ff9b9b;
+  border: 1px solid rgba(255, 78, 78, 0.7);
+}
+
+/* 右侧面板 */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 表格 */
+.table-wrapper {
+  max-height: calc(100vh - 140px);
+  overflow: auto;
+}
+
+.fund-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  font-size: 12px;
+  color: #e8f2ff;
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
+.fund-table thead {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to right, #071525, #050810);
+  z-index: 1;
 }
 
-.status-strong { color: red; font-weight: bold; }
-.status-buy-2 { color: orange; font-weight: bold; }
-.status-buy-1 { color: #d18b00; font-weight: bold; }
-.status-watch { color: gray; }
-.status-normal { color: black; }
+.fund-table th,
+.fund-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(46, 89, 120, 0.6);
+  white-space: nowrap;
+}
+
+.fund-table th {
+  text-align: left;
+  font-weight: 500;
+  color: #9ad9ff;
+}
+
+.fund-row {
+  background: rgba(4, 10, 18, 0.92);
+}
+
+.fund-row:nth-child(even) {
+  background: rgba(6, 14, 25, 0.92);
+}
+
+.fund-row:hover {
+  background: rgba(18, 43, 71, 0.95);
+}
+
+/* 类型色条 */
+.fund-type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.type-dot {
+  width: 8px;
+  height: 18px;
+  border-radius: 999px;
+}
+
+/* 类型颜色 */
+.type-core {
+  background: linear-gradient(to bottom, #4ef2e3, #1a7d7a);
+}
+
+.type-defense {
+  background: linear-gradient(to bottom, #9ad9ff, #275c90);
+}
+
+.type-highbeta {
+  background: linear-gradient(to bottom, #ff4e4e, #8c1f2e);
+}
+
+/* 数字颜色 */
+.text-green {
+  color: #76e2a0;
+}
+
+.text-red {
+  color: #ff9b9b;
+}
+
+/* 底部栏 */
+.bottom-bar {
+  height: 40px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(46, 89, 120, 0.7);
+  background: radial-gradient(circle at bottom, #050812, #020307);
+  font-size: 11px;
+  color: #8597aa;
+}
+
+/* 响应式（窄屏时改布局） */
+@media (max-width: 900px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .left-panel {
+    order: 2;
+  }
+
+  .right-panel {
+    order: 1;
+  }
+
+  .table-wrapper {
+    max-height: none;
+  }
+}

@@ -1,35 +1,154 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <title>冷噤舱 · Lingjin-T1 控制台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="app">
+    <!-- 顶部导航条 -->
+    <header class="top-bar">
+      <div class="top-left">
+        <div class="logo-dot"></div>
+        <div class="top-title">
+          <div class="main-title">冷噤舱 · Lingjin-T1</div>
+          <div class="sub-title">Deep Space Control Panel</div>
+        </div>
+      </div>
+      <div class="top-right">
+        <div class="top-info">
+          <span id="todayDate"></span>
+          <span class="sep">·</span>
+          <span id="summaryHint">系统在线 · 数据来自 FUND_BASE.csv</span>
+        </div>
+      </div>
+    </header>
 
-<h2>冷噤舱 · Lingjin-T1</h2>
+    <!-- 主体区域 -->
+    <main class="main-layout">
+      <!-- 左侧控制面板 -->
+      <aside class="left-panel">
+        <!-- 组合概况 -->
+        <section class="card card-summary">
+          <div class="card-title">组合概况</div>
+          <div class="card-body summary-body">
+            <div class="summary-row">
+              <span class="label">组合总市值</span>
+              <span class="value" id="totalValue">--</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">海外仓位</span>
+              <span class="value" id="overseasWeight">--</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">防守仓位</span>
+              <span class="value" id="defenseWeight">--</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">高波动仓位</span>
+              <span class="value" id="highBetaWeight">--</span>
+            </div>
+          </div>
+        </section>
 
-<div id="summary">
-  <p>总市值：<span id="total-amount">--</span></p >
-</div>
+        <!-- 三大核心腿 -->
+        <section class="card card-core">
+          <div class="card-title">三大核心腿 · Reactors</div>
+          <div class="card-body core-body">
+            <div class="reactor" id="reactor-kc">
+              <div class="reactor-title">科创板综指</div>
+              <div class="reactor-meta">
+                <span>目标 20%</span>
+                <span id="kcWeight">当前 --</span>
+              </div>
+              <div class="reactor-bar">
+                <div class="reactor-fill" id="kcBar"></div>
+              </div>
+              <div class="reactor-signal" id="kcSignal">信号：--</div>
+            </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>基金名称</th>
-      <th>当前净值</th>
-      <th>成本</th>
-      <th>份额</th>
-      <th>市值</th>
-      <th>回撤</th>
-      <th>仓位</th>
-      <th>状态</th>
-      <th>建议</th>
-    </tr>
-  </thead>
-  <tbody id="fund-rows"></tbody>
-</table>
+            <div class="reactor" id="reactor-fcf">
+              <div class="reactor-title">自由现金流 023919</div>
+              <div class="reactor-meta">
+                <span>目标 20%</span>
+                <span id="fcfWeight">当前 --</span>
+              </div>
+              <div class="reactor-bar">
+                <div class="reactor-fill" id="fcfBar"></div>
+              </div>
+              <div class="reactor-signal" id="fcfSignal">信号：--</div>
+            </div>
 
-<script src="script.js"></script>
+            <div class="reactor" id="reactor-div">
+              <div class="reactor-title">中证红利</div>
+              <div class="reactor-meta">
+                <span>目标 10%</span>
+                <span id="divWeight">当前 --</span>
+              </div>
+              <div class="reactor-bar">
+                <div class="reactor-fill" id="divBar"></div>
+              </div>
+              <div class="reactor-signal" id="divSignal">信号：--</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 今日信号区 -->
+        <section class="card card-signals">
+          <div class="card-title">今日信号 · Signal Deck</div>
+          <div class="card-body">
+            <ul class="signal-list" id="signalList">
+              <!-- script.js 填充 -->
+            </ul>
+          </div>
+        </section>
+      </aside>
+
+      <!-- 右侧主表格 -->
+      <section class="right-panel">
+        <section class="card card-table">
+          <div class="card-title">基金明细 · Fund Grid</div>
+          <div class="card-body">
+            <div class="table-wrapper">
+              <table class="fund-table">
+                <thead>
+                  <tr>
+                    <th>类型</th>
+                    <th>基金名称</th>
+                    <th>当前净值</th>
+                    <th>成本</th>
+                    <th>份额</th>
+                    <th>市值</th>
+                    <th>3月高点</th>
+                    <th>回撤</th>
+                    <th>仓位</th>
+                    <th>状态</th>
+                    <th>今日建议</th>
+                  </tr>
+                </thead>
+                <tbody id="fundTableBody">
+                  <!-- script.js 填充 -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <!-- 底部状态栏 -->
+    <footer class="bottom-bar">
+      <div class="bottom-left">
+        数据源：FUND_BASE.csv · 手动更新 CurrentValue 即可
+      </div>
+      <div class="bottom-right">
+        <span id="footerStatus">冷噤舱在线 · 等待今日净值更新</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
