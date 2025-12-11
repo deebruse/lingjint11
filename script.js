@@ -182,7 +182,7 @@ function renderDashboard(funds) {
   }
 
   setReactor("科创板", "kcWeight", "kcBar", "kcSignal");
-  setReactor("自由现金流", "fcfWeight", "fcfBar", "fcfSignal");
+  setReactor("现金流", "fcfWeight", "fcfBar", "fcfSignal");
   setReactor("红利", "divWeight", "divBar", "divSignal");
 
   // 信号列表
@@ -320,4 +320,5 @@ fetch("FUND_BASE.csv")
     if (footerStatus) {
       footerStatus.textContent = "冷噤舱警告 · 无法读取 FUND_BASE.csv";
     }
+
   });
